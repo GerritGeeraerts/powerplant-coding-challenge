@@ -72,10 +72,25 @@ def test_powerplant_type_windturbine():
     result = PowerPlantIn(**power_plant)
     assert result.type == 'windturbine'
 
+
 def test_powerplant_type_no_free_type():
     """test that the powerplant type does not accept free text"""
     # todo
     pass
+
+
+def test_powerplant_pmin_decimals():
+    """convert pmin to a multiple of 0.1 for pmin 100.12 it should be converted to 100.2"""
+    power_plant = {"name": "", "type": "windturbine", "efficiency": 0.53, "pmin": 100.12, "pmax": 460}
+    result = PowerPlantIn(**power_plant)
+    assert result.pmin == 100.2
+
+
+def test_powerplant_pmax_decimals():
+    """convert pmax to a multiple of 0.1 for pmax 460.14 it should be converted to 460.1"""
+    power_plant = {"name": "", "type": "windturbine", "efficiency": 0.53, "pmin": 100, "pmax": 460.14}
+    result = PowerPlantIn(**power_plant)
+    assert result.pmin == 460.1
 
 
 def test_power_plant_schema():
