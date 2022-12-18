@@ -133,7 +133,7 @@ def test_main_payload_1(client: TestClient):
     """
     test the '/productionplan/' with the example payload1.json data
     """
-    with open('../example_payloads/payload1.json') as f:
+    with open('./example_payloads/payload1.json') as f:
         payload = json.load(f)
         response = client.post(
             '/productionplan/',
@@ -142,16 +142,15 @@ def test_main_payload_1(client: TestClient):
         result = response.json()
 
         result_d = {}
-        for k, v in result.items():
-            result_d[k] = v
+        for dict_ in result:
+            result_d[dict_['name']] = dict_['p']
 
-        assert result_d['windpark1'] == 90
-        assert result_d['windpark1'] == 21.6
+        # breakpoint()
+        assert result_d['windpark1'] == 90.0
+        assert result_d['windpark2'] == 21.6
         assert result_d['gasfiredbig1'] + result_d['gasfiredbig2'] == 368.4
-        assert payload['powerplants']['gasfiredbig1']['pmin'] >= result_d['gasfiredbig1'] \
-               >= payload['powerplants']['gasfiredbig1']['pmin'] or result_d['gasfiredbig1'] == 0
-        assert payload['powerplants']['gasfiredbig2']['pmin'] >= result_d['gasfiredbig2'] \
-               >= payload['powerplants']['gasfiredbig2']['pmin'] or result_d['gasfiredbig2'] == 0
+        assert 100 <= result_d['gasfiredbig1'] <= 460 or result_d['gasfiredbig1'] == 0
+        assert 100 <= result_d['gasfiredbig2'] <= 460 or result_d['gasfiredbig2'] == 0
         assert result_d['gasfiredsomewhatsmaller'] == 0
         assert result_d['tj1'] == 0
 
@@ -160,7 +159,7 @@ def test_main_payload_2(client: TestClient):
     """
     test the '/productionplan/' with the example payload2.json data
     """
-    with open('../example_payloads/payload2.json') as f:
+    with open('./example_payloads/payload2.json') as f:
         payload = json.load(f)
         response = client.post(
             '/productionplan/',
@@ -169,16 +168,14 @@ def test_main_payload_2(client: TestClient):
         result = response.json()
 
         result_d = {}
-        for k, v in result.items():
-            result_d[k] = v
+        for dict_ in result:
+            result_d[dict_['name']] = dict_['p']
 
         assert result_d['windpark1'] == 0
-        assert result_d['windpark1'] == 0
+        assert result_d['windpark2'] == 0
         assert result_d['gasfiredbig1'] + result_d['gasfiredbig2'] == 480
-        assert payload['powerplants']['gasfiredbig1']['pmin'] >= result_d['gasfiredbig1'] \
-               >= payload['powerplants']['gasfiredbig1']['pmin'] or result_d['gasfiredbig1'] == 0
-        assert payload['powerplants']['gasfiredbig2']['pmin'] >= result_d['gasfiredbig2'] \
-               >= payload['powerplants']['gasfiredbig2']['pmin'] or result_d['gasfiredbig2'] == 0
+        assert 100 <= result_d['gasfiredbig1'] <= 460 or result_d['gasfiredbig1'] == 0
+        assert 100 <= result_d['gasfiredbig2'] <= 460 or result_d['gasfiredbig2'] == 0
         assert result_d['gasfiredsomewhatsmaller'] == 0
         assert result_d['tj1'] == 0
 
@@ -187,7 +184,7 @@ def test_main_payload_3(client: TestClient):
     """
     test the '/productionplan/' with the example payload3.json data
     """
-    with open('../example_payloads/payload3.json') as f:
+    with open('./example_payloads/payload3.json') as f:
         payload = json.load(f)
         response = client.post(
             '/productionplan/',
@@ -196,22 +193,13 @@ def test_main_payload_3(client: TestClient):
         result = response.json()
 
         result_d = {}
-        for k, v in result.items():
-            result_d[k] = v
+        for dict_ in result:
+            result_d[dict_['name']] = dict_['p']
 
-        assert result_d['windpark1'] == 90
-        assert result_d['windpark1'] == 21.6
+        assert result_d['windpark1'] == 90.0
+        assert result_d['windpark2'] == 21.6
         assert result_d['gasfiredbig1'] + result_d['gasfiredbig2'] == 798.4
-        assert payload['powerplants']['gasfiredbig1']['pmin'] >= result_d['gasfiredbig1'] \
-               >= payload['powerplants']['gasfiredbig1']['pmin'] or result_d['gasfiredbig1'] == 0
-        assert payload['powerplants']['gasfiredbig2']['pmin'] >= result_d['gasfiredbig2'] \
-               >= payload['powerplants']['gasfiredbig2']['pmin'] or result_d['gasfiredbig2'] == 0
+        assert 100 <= result_d['gasfiredbig1'] <= 460 or result_d['gasfiredbig1'] == 0
+        assert 100 <= result_d['gasfiredbig2'] <= 460 or result_d['gasfiredbig2'] == 0
         assert result_d['gasfiredsomewhatsmaller'] == 0
         assert result_d['tj1'] == 0
-
-
-def test_production_plan_decimals(client: TestClient):
-    """
-    test that te returned powers are tranformed to multiples of 0.1
-    """
-    assert False, 'todo'

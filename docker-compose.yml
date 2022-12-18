@@ -5,11 +5,11 @@ version: '3.8'
 services:
   web:
     build: .
-    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 80
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8888
     volumes:
       - app:/app
     ports:  # new
-      - "8888:80"
+      - "8888:8888"
 
 volumes:
   app:
