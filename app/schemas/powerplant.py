@@ -56,4 +56,16 @@ class PowerPlantIn(BaseModel):
 
 
 class PowerPlantOut(BaseModel):
-    pass
+    name: str = Field(
+        example='gasfiredbig2',
+        description='The name of the power plant',
+    )
+    p: str = Field(
+        example=200,
+        description='The power that has to be produced by the power plant',
+    )
+
+    @validator('p')
+    def p_decimals(cls, v):
+        if v * 10 % 0.1 != 0:
+            raise ValueError('p needs to be a multiple of 0.1')

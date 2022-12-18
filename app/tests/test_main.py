@@ -208,3 +208,10 @@ def test_main_payload_3(client: TestClient):
                >= payload['powerplants']['gasfiredbig2']['pmin'] or result_d['gasfiredbig2'] == 0
         assert result_d['gasfiredsomewhatsmaller'] == 0
         assert result_d['tj1'] == 0
+
+
+def test_production_plan_decimals(client: TestClient):
+    """
+    test that te returned powers are tranformed to multiples of 0.1
+    """
+    assert False, 'todo'
