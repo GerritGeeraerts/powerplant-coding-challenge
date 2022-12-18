@@ -1,3 +1,4 @@
+import math
 from enum import Enum
 
 from pydantic import validator, Field, BaseModel
@@ -39,9 +40,19 @@ class PowerPlantIn(BaseModel):
 
     @validator('pmax')
     def pmin_le_pmax_decimals(cls, v, values, **kwargs):
+        """
+        make sure pmax is bigger than pmin and convert pmax to a multiple of 0.1 and le than pmax
+        """
         if 'pmin' in values and v < values['pmin']:
             raise ValueError('pmax has to be higher or equal to pmin')
-        return v
+        return v*10//1/10
+
+    @validator('pmin')
+    def pmin_decimals(cls, v):
+        """
+        make sure that pmin is a multiple of 0.1 and ge pmin
+        """
+        return math.ceil(v*10)/10
 
 
 class PowerPlantOut(BaseModel):

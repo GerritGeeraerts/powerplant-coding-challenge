@@ -90,7 +90,7 @@ def test_powerplant_pmax_decimals():
     """convert pmax to a multiple of 0.1 for pmax 460.14 it should be converted to 460.1"""
     power_plant = {"name": "", "type": "windturbine", "efficiency": 0.53, "pmin": 100, "pmax": 460.14}
     result = PowerPlantIn(**power_plant)
-    assert result.pmin == 460.1
+    assert result.pmax == 460.1
 
 
 def test_power_plant_schema():
