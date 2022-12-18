@@ -3,6 +3,6 @@ from fastapi import FastAPI
 app = FastAPI()
 
 
-@app.get('/')
-def hello():
+@app.post('/productionplan/')
+def productionplan():
     return {'hel': 'lo'}

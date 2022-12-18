@@ -72,7 +72,6 @@ def test_powerplant_type_windturbine():
     result = PowerPlantIn(**power_plant)
     assert result.type == 'windturbine'
 
-
 def test_powerplant_type_no_free_type():
     """test that the powerplant type does not accept free text"""
     # todo
