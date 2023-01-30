@@ -14,18 +14,16 @@ class MeritOrder:
                 # use real_pmax of powerplant
                 self.load += pp.real_pmax
                 self.power_plants[index].p = pp.real_pmax
-                # breakpoint()
                 continue
             if self.load + pp.real_pmin > self.desired_load:
                 # minimum of pp is too much, go back and reduce
                 print(f'minimum is to much {self.load}+{pp.real_pmin} < {self.desired_load}')
-                assert index >= 1, 'there is no previous powerplant to reduce'
-                # breakpoint()
-                assert self.power_plants[index - 1].p - pp.real_pmin > self.power_plants[index - 1].real_pmin, \
-                    'the previous powerplant needs to be reduced to much'
+                if index >= 1:
+                    raise 'there is no previous powerplant to reduce'
+                if self.power_plants[index - 1].p - pp.real_pmin > self.power_plants[index - 1].real_pmin:
+                    raise 'the previous powerplant needs to be reduced to much'
                 self.power_plants[index - 1].p = self.power_plants[index - 1].p - pp.real_pmin
                 self.load -= pp.real_pmin
             self.power_plants[index].p = self.desired_load - self.load
             self.load = self.desired_load
-            # breakpoint()
             break
