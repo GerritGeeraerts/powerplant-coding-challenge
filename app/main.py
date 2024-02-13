@@ -14,6 +14,7 @@ app = FastAPI()
 
 @app.get('/')
 def redirect():
+    """Redirect to root to the generated api documentation"""
     response = RedirectResponse(url='/docs/')
     return response
 
@@ -29,6 +30,7 @@ def production_plan(
         fuels: FuelsIn,
         power_plants_in: List[PowerPlantIn] = Body(default=..., alias='powerplants', )
 ):
+    """Calculate the production plan for a given load and a list of power plants"""
     power_plants = []
     for pp in power_plants_in:
         power_plants.append(power_plant_factory(pp, fuels))

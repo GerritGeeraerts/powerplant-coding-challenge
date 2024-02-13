@@ -5,6 +5,7 @@ from pydantic import validator, Field, BaseModel
 
 
 class PowerPlantIn(BaseModel):
+    """This is the input schema for a power plant. It is used to create a power plant object."""
     class Type(str, Enum):
         gasfired = "gasfired"
         turbojet = "turbojet"
@@ -40,22 +41,19 @@ class PowerPlantIn(BaseModel):
 
     @validator('pmax')
     def pmin_le_pmax_decimals(cls, v, values, **kwargs):
-        """
-        make sure pmax is bigger than pmin and convert pmax to a multiple of 0.1 and le than pmax
-        """
+        """make sure pmax is bigger than pmin and convert pmax to a multiple of 0.1 and le than pmax"""
         if 'pmin' in values and v < values['pmin']:
             raise ValueError('pmax has to be higher or equal to pmin')
         return v*10//1/10
 
     @validator('pmin')
     def pmin_decimals(cls, v):
-        """
-        make sure that pmin is a multiple of 0.1 and ge pmin
-        """
+        """make sure that pmin is a multiple of 0.1 and ge pmin"""
         return math.ceil(v*10)/10
 
 
 class PowerPlantOut(BaseModel):
+    """This is the output schema for a power plant. It is used to return the power plant object."""
     name: str = Field(
         example='gasfiredbig2',
         description='The name of the power plant',
@@ -67,4 +65,5 @@ class PowerPlantOut(BaseModel):
 
     @validator('p')
     def decimal(cls, v):
+        """fix the output to one decimal"""
         return float('{:0.1f}'.format(v))

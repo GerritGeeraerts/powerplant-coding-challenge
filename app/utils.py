@@ -4,6 +4,9 @@ from app.schemas.powerplant import PowerPlantIn
 
 
 def power_plant_factory(pp: PowerPlantIn, fuels: FuelsIn):
+    """
+    Factory function to create a power plant object
+    """
     if pp.type == PowerPlantIn.Type.gasfired:
         return GasFired(pp.name, pp.efficiency, pp.pmin, pp.pmax, fuels.gas_price)
     if pp.type == PowerPlantIn.Type.turbojet:

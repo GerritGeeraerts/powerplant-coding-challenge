@@ -31,4 +31,5 @@ class FuelsIn(BaseModel):
 
     @validator('wind_rate')
     def decimals(cls, v):
+        """Recalculate the wind rate to a percentage"""
         return v / 100

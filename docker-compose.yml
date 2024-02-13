@@ -9,7 +9,7 @@ services:
     volumes:
       - app:/app
     ports:  # new
-      - "8888:8888"
+      - "8899:8888"
 
 volumes:
   app:
