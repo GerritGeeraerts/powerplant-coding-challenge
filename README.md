@@ -16,6 +16,12 @@ Pmin and Pmax of each powerplant.
 interesting software engineering topics.
 You can read the [full coding-challenge assignment](assets/coding-challenge.md) for more details.
 
+## Research and findings
+### Github star history
+Github star history of FastAPI and some of its siblings: Flask, Django and Django Rest Framework
+[![Star History Chart](https://api.star-history.com/svg?repos=tiangolo/fastapi,pallets/flask,django/django,encode/django-rest-framework&type=Date)](https://star-history.com/#tiangolo/fastapi&pallets/flask&django/django&encode/django-rest-framework&Date)
+
+
 ## 📦 Repo structure
 ```
 .
