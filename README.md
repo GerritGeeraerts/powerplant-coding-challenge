@@ -24,30 +24,38 @@ Github star history of FastAPI and some of its siblings: Flask, Django and Djang
 
 ## 📦 Repo structure
 ```
+# tree -I '__pycache__|__init__.py|assets/|*.json|example_payloads/|*.log'
 .
 ├── app
-│   ├── __init__.py
-│   ├── main.py
-│   ├── models
-│   │   ├── meritorder.py
-│   │   └── powerplants.py
-│   ├── schemas
-│   │   ├── fuels.py
-│   │   └── powerplant.py
-│   ├── tests
-│   │   ├── conftest.py
-│   │   └── test_main.py
-│   └── utils.py
+│   ├── api
+│   │   └── routes
+│   │       └── v1
+│   │           ├── productionplan.py
+│   │           └── router.py
+│   ├── core
+│   │   ├── config.py
+│   │   ├── exceptions.py
+│   │   └── logging.py
+│   ├── main.py
+│   ├── middleware.py
+│   ├── models
+│   │   ├── meritorder.py
+│   │   └── powerplants.py
+│   ├── schemas
+│   │   ├── fuels.py
+│   │   ├── powerplant.py
+│   │   └── productionplan.py
+│   ├── tests
+│   │   ├── conftest.py
+│   │   └── test_main.py
+│   └── utils.py
 ├── docker-compose.yml
 ├── Dockerfile
-├── example_payloads
-│   ├── payload1.json
-│   ├── payload2.json
-│   └── payload3.json
+├── logs
 ├── README.md
 └── requirements
-    ├── base.txt
-    └── local.txt
+    ├── base.txt
+    └── local.txt
 ```
 
 ## 🚀 To start the server with docker
