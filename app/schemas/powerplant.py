@@ -3,6 +3,7 @@ from enum import Enum
 
 from pydantic import Field, BaseModel, field_validator
 from app.core.config import settings
+from app.core.exceptions import PmaxLessThanPminError
 
 
 class PowerPlantIn(BaseModel):
@@ -45,7 +46,7 @@ class PowerPlantIn(BaseModel):
     def pmin_le_pmax_decimals(cls, v, info):
         """make sure pmax is bigger than pmin and convert pmax to a multiple of settings.PRECISION and le than pmax"""
         if 'pmin' in info.data and v < info.data['pmin']:
-            raise ValueError('pmax has to be higher or equal to pmin')
+            raise PmaxLessThanPminError(v, info.data['pmin'], info.data.get('name'))
         precision_factor = 1 / settings.PRECISION
         return v * precision_factor // 1 / precision_factor
 

@@ -2,6 +2,7 @@ import logging
 from app.models.powerplants import GasFired, Turbojet, WindTurbine
 from app.schemas.fuels import FuelsIn
 from app.schemas.powerplant import PowerPlantIn
+from app.core.exceptions import InvalidPowerPlantTypeError
 
 logger = logging.getLogger(__name__)
 
@@ -25,4 +26,4 @@ def power_plant_factory(pp: PowerPlantIn, fuels: FuelsIn):
     
     error_msg = f'Unknown powerplant type: {pp.type}'
     logger.error(error_msg)
-    raise ValueError(error_msg)
+    raise InvalidPowerPlantTypeError(pp.type)
