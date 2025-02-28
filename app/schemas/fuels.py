@@ -1,37 +1,40 @@
-from pydantic import BaseModel, Field, field_validator
+"""Schemas for fuels data."""
+
+from pydantic import BaseModel, Field
+
 from app.core.config import settings
 
 
 class FuelsIn(BaseModel):
+    """Input schema for fuels data."""
+
     gas_price: float = Field(
-        alias="gas(euro/MWh)",
-        example=1.1,
+        description="The price of gas per MWh in euros/MWh",
+        examples=[13.4],
         ge=settings.MIN_FUEL_PRICE,
-        description='The price (EUR) of gas per MWh'
     )
     kerosine_price: float = Field(
-        alias="kerosine(euro/MWh)",
-        example=2.25,
-        ge=0,
-        description='The price (EUR) of kerosine per MWh',
+        description="The price of kerosine per MWh in euros/MWh",
+        examples=[50.8],
+        ge=settings.MIN_FUEL_PRICE,
     )
     co2_price: float = Field(
-        alias="co2(euro/ton)",
-        example=1,
-        ge=0,
-        description='The price of emission allowances',
+        description="The price of CO2 emission certificates in euros/ton",
+        examples=[20],
+        ge=settings.MIN_FUEL_PRICE,
     )
-    wind_rate: float = Field(
-        alias="wind(%)",
-        example=75,
+    wind_percentage: float = Field(
+        description="The percentage of wind turbine capacity that is available",
+        examples=[60],
         ge=settings.MIN_WIND_PERCENTAGE,
         le=settings.MAX_WIND_PERCENTAGE,
-        description='Percentage of wind. Example: if there is on average 25% wind during an hour, a wind-turbine with '
-                    'a Pmax of 4 MW will generate 1MWh of energy.',
     )
 
-    @field_validator('wind_rate')
     @classmethod
-    def decimals(cls, v):
-        """Recalculate the wind rate to a percentage"""
-        return v / 100
+    def validate_wind_percentage(cls, v: float) -> float:
+        """Validate that wind percentage is within allowed range."""
+        if v < settings.MIN_WIND_PERCENTAGE or v > settings.MAX_WIND_PERCENTAGE:
+            raise ValueError(
+                f"Wind percentage must be between {settings.MIN_WIND_PERCENTAGE} and {settings.MAX_WIND_PERCENTAGE}"
+            )
+        return v

@@ -1,3 +1,5 @@
+"""Logging configuration for the application."""
+
 from logging import config
 
 LOGGING_CONFIG = {
@@ -33,6 +35,7 @@ LOGGING_CONFIG = {
     },
 }
 
-def configure_logging():
-    """Initialize the logging configuration"""
+
+def configure_logging() -> None:
+    """Initialize the logging configuration."""
     config.dictConfig(LOGGING_CONFIG)

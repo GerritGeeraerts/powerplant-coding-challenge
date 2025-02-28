@@ -8,11 +8,11 @@
 ![FastApiPowerPlant](assets/fast_api_power_plant.jpeg)
 
 ## 🏢 Description
-Calculate how much power each of a multitude of different powerplants need to produce (a.k.a. the production-plan) 
-when the load is given and taking into account the cost of the underlying energy sources (gas, kerosine) and the 
+Calculate how much power each of a multitude of different powerplants need to produce (a.k.a. the production-plan)
+when the load is given and taking into account the cost of the underlying energy sources (gas, kerosine) and the
 Pmin and Pmax of each powerplant.
 * Do not to rely on an existing (linear-programming) solver.
-* The focus is on the programming concepts and structures and will be used as a base to discuss all kinds of 
+* The focus is on the programming concepts and structures and will be used as a base to discuss all kinds of
 interesting software engineering topics.
 You can read the [full coding-challenge assignment](assets/coding-challenge.md) for more details.
 
@@ -24,7 +24,6 @@ Github star history of FastAPI and some of its siblings: Flask, Django and Djang
 
 ## 📦 Repo structure
 ```
-# tree -I '__pycache__|__init__.py|assets/|*.json|example_payloads/|*.log'
 .
 ├── app
 │   ├── api
@@ -56,7 +55,37 @@ Github star history of FastAPI and some of its siblings: Flask, Django and Djang
 └── requirements
     ├── base.txt
     └── local.txt
+
+# update project structure: tree -I '__pycache__|__init__.py|assets/|*.json|example_payloads/|*.log'
 ```
+
+## Development Setup
+
+This project uses pre-commit hooks to ensure code quality and consistency.
+
+### Setting up the development environment
+
+1. Create and activate a virtual environment:
+   ```
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+2. Run the setup script:
+   ```
+   python scripts/setup_dev.py
+   ```
+
+This will install all development dependencies and set up pre-commit hooks.
+
+### Running pre-commit manually
+
+You can run pre-commit manually on all files:
+```bash
+pre-commit run --all-files
+```
+Or let it run automatically on every commit.
+
 
 ## 🚀 To start the server with docker
 ```bash
@@ -65,7 +94,7 @@ sudo docker compose up -d --build
 # or for the older docker versions:
 sudo docker-compose up -d --build
 ```
-Open [http://localhost:8899/docs](http://localhost:8899/docs) 
+Open [http://localhost:8899/docs](http://localhost:8899/docs)
 or [http://127.0.0.1:8899/docs](http://127.0.0.1:8899/docs) in your browser.
 ### To stop
 ```bash
@@ -85,7 +114,7 @@ The automatic generated API documentations are also interactive and you can test
 This project took a study day and an execution day and was build in the pre copilot and chatGPT era.
 
 ## 📌 Personal Situation
-This project was done as part of job interview. It was the first time that I used FastApi and the first time I 
+This project was done as part of job interview. It was the first time that I used FastApi and the first time I
 started out a project with Test Driven Development approach. I had lots of fun exploring these new concepts.
 
 ### Connect with me!
