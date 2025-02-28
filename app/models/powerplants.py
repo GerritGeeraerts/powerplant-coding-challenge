@@ -1,8 +1,10 @@
 import abc
+import logging
 
 from app.schemas.fuels import FuelsIn
 from app.schemas.powerplant import PowerPlantIn
 
+logger = logging.getLogger(__name__)
 
 class PowerPlant:
     """Abstract class for power plants"""
@@ -19,6 +21,7 @@ class PowerPlant:
         self.real_pmax = pmax
         # set the power output to 0 by default
         self.p = 0
+        logger.debug(f"Created {self.__class__.__name__} '{name}' with efficiency {energy_effciency}, pmin {pmin}, pmax {pmax}")
 
     def __repr__(self):
         """Representation of the power plant object"""
@@ -44,6 +47,7 @@ class WindTurbine(PowerPlant):
         super().__init__(name, 1, 0, pmax, 0)
         self.real_pmin = pmax * wind
         self.real_pmax = self.real_pmin
+        logger.debug(f"Wind turbine '{name}' real power output set to {self.real_pmin} based on wind rate {wind}")
 
     def __dict__(self):
         """Override the dict function for a wind turbine object"""
@@ -57,10 +61,12 @@ class WindTurbine(PowerPlant):
 class Turbojet(PowerPlant):
     def cost(self, load):
         """cost calculation for a turbojet power plant"""
+        logger.debug(f"Calculating cost for turbojet '{self.name}' with load {load}: {load * self.fuelcost}")
         return load * self.fuelcost
 
 
 class GasFired(PowerPlant):
     def cost(self, load):
         """cost calculation for a gas fired power plant"""
+        logger.debug(f"Calculating cost for gas fired plant '{self.name}' with load {load}: {load * self.fuelcost}")
         return load * self.fuelcost

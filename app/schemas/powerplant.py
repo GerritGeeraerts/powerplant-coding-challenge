@@ -2,6 +2,7 @@ import math
 from enum import Enum
 
 from pydantic import Field, BaseModel, field_validator
+from app.core.config import settings
 
 
 class PowerPlantIn(BaseModel):
@@ -42,16 +43,18 @@ class PowerPlantIn(BaseModel):
     @field_validator('pmax')
     @classmethod
     def pmin_le_pmax_decimals(cls, v, info):
-        """make sure pmax is bigger than pmin and convert pmax to a multiple of 0.1 and le than pmax"""
+        """make sure pmax is bigger than pmin and convert pmax to a multiple of settings.PRECISION and le than pmax"""
         if 'pmin' in info.data and v < info.data['pmin']:
             raise ValueError('pmax has to be higher or equal to pmin')
-        return v*10//1/10
+        precision_factor = 1 / settings.PRECISION
+        return v * precision_factor // 1 / precision_factor
 
     @field_validator('pmin')
     @classmethod
     def pmin_decimals(cls, v):
-        """make sure that pmin is a multiple of 0.1 and ge pmin"""
-        return math.ceil(v*10)/10
+        """make sure that pmin is a multiple of settings.PRECISION and ge pmin"""
+        precision_factor = 1 / settings.PRECISION
+        return math.ceil(v * precision_factor) / precision_factor
 
 
 class PowerPlantOut(BaseModel):
@@ -68,5 +71,5 @@ class PowerPlantOut(BaseModel):
     @field_validator('p')
     @classmethod
     def decimal(cls, v):
-        """fix the output to one decimal"""
-        return float('{:0.1f}'.format(v))
+        """fix the output to precision defined in settings"""
+        return float(f'{{:0.{settings.MIN_POWER_DECIMAL_PLACES}f}}'.format(v))

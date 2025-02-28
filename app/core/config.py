@@ -10,8 +10,8 @@ class Settings():
     MIN_POWER_DECIMAL_PLACES: int = 1  # Number of decimal places for power values
     MAX_WIND_PERCENTAGE: float = 100.0
     MIN_WIND_PERCENTAGE: float = 0.0
+    PRECISION: float = 0.1  # Precision for calculations
 
     MIN_FUEL_PRICE: float = 0.0
-    
 
-settings = Settings() 
+settings = Settings()
