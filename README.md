@@ -45,7 +45,9 @@ Github star history of FastAPI and some of its siblings: Flask, Django and Djang
 │   ├── payload2.json
 │   └── payload3.json
 ├── README.md
-├── requirements.txt
+└── requirements
+    ├── base.txt
+    └── local.txt
 ```
 
 ## 🚀 To start the server with docker
